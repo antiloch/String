@@ -2741,7 +2741,8 @@ END_TEST
 // }
 // END_TEST
 
-// START_TEST(strcat_zero_first) {  // ?????????????????????? work on school mac,
+// START_TEST(strcat_zero_first) {  // ?????????????????????? work on school
+// mac,
 //                                  // but not on arm mac!
 //   char src[] = " aboba!!!";
 //   char res[0 + 10] = "";
@@ -3304,7 +3305,8 @@ END_TEST
 //   char str2[BUFF_SIZE];
 //   char *format = "%.15f";
 //   long double val = 15.35;
-//   ck_assert_int_eq(s21_sprintf(str1, format, val), sprintf(str2, format, val));
+//   ck_assert_int_eq(s21_sprintf(str1, format, val), sprintf(str2, format,
+//   val));
 
 //   ck_assert_str_eq(str1, str2);
 // }
@@ -3353,7 +3355,8 @@ END_TEST
 //   float val3 = 5.5;
 //   double val4 = 9851.51351;
 //   long double val5 = 59.531131;
-//   ck_assert_int_eq(s21_sprintf(str1, format, val, val1, val2, val3, val4, val5),
+//   ck_assert_int_eq(s21_sprintf(str1, format, val, val1, val2, val3, val4,
+//   val5),
 //                    sprintf(str2, format, val, val1, val2, val3, val4, val5));
 
 //   ck_assert_str_eq(str1, str2);

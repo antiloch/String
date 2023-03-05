@@ -42,20 +42,14 @@ test: $(TEST_OBJECTS) $(TEST_LIB)
 	$(CC) $(FLAGS) $^ -o $@ $(CHFLAGS) $(GOFLAGS) $(TEST_FLAGS)
 
 $(TEST_OBJECTS) : $(BUILD_TEST_DIR)/%.o : $(TEST_DIR)/%.c $(TEST_DIR)/test_me.h
-	@mkdir -p $(BUILD_TEST_DIR)
-	@cd &(BUILD_TEST_DIR)
-	@mkdir s21_specs
-	@cd ..
+	@mkdir -p $(BUILD_TEST_DIR)/s21_specs
 	$(CC) $(FLAGS) $(IN_FLAGS) $(TEST_FLAGS)  -c $< -o $@
 
 $(TEST_LIB): $(TEST_S21_OBJECTS)
 	ar -rcs $@ $^
 
 $(TEST_S21_OBJECTS): $(TEST_BUILD_DIR)/%.o : %.c $(LIB:.a=.h) 
-	@mkdir -p $(TEST_BUILD_DIR)
-	@cd &(TEST_BUILD_DIR)
-	@mkdir s21_specs
-	@cd ..
+	@mkdir -p $(TEST_BUILD_DIR)/s21_specs
 	$(CC) $(FLAGS) $(OPTFLAGS) $(GFLAGS) -c $< -o $@
 
 $(LIB): $(S21_OBJECTS)
@@ -63,10 +57,7 @@ $(LIB): $(S21_OBJECTS)
 
 #формируем обьектные файлы для библиотеки
 $(S21_OBJECTS): $(BUILD_DIR)/%.o : %.c $(LIB:.a=.h)  
-	@mkdir -p $(BUILD_DIR)
-	@cd &(BUILD_DIR)
-	@mkdir s21_specs
-	@cd ..
+	@mkdir -p $(BUILD_DIR)/s21_specs
 	$(CC) $(FLAGS) -c $< -o $@
 
 # ######################################################################
@@ -80,16 +71,17 @@ LIB_NAME=s21_string
 all: clean $(LIB_NAME).a 
 
 clean:
-	@echo ==Cleaning...==
+	@echo Cleaning...
 	@rm -rf $(GCOV_DIR) $(BUILD_DIR) $(BUILD_TEST_DIR) $(TEST_BUILD_DIR)
+	@rm -rf s21_specs/*.o
+	@rm -rf *.o
 	@rm -rf *.html
 	@rm -rf a.out test
 	@rm -rf *.a
 	@rm -rf *.css
 	@rm -rf *.gch $(TEST_DIR)/*.gch
 	@rm -rf ./external/external
-	@echo ==EVERYTHING REMOVED!==
-	@echo ==Done!==
+	@echo "\033[42m DONE \033[0m"
 
 # clean:
 # 	rm -rf *.o test *.a *.gcno *.gcda *.gcov *.html *.css
@@ -99,9 +91,9 @@ clean:
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
-$(LIB_NAME).a: $(OBJS)
-	ar rc $(LIB_NAME).a $^
-	ranlib $(LIB_NAME).a
+# $(LIB_NAME).a: $(OBJS)
+# 	ar rc $(LIB_NAME).a $^
+# 	ranlib $(LIB_NAME).a
 
 # test: clean $(LIB_NAME).a
 # 	$(CC) $(FLAGS) test*.c -L. $(LIB_NAME).a $(TST_LIBS) -o test
@@ -118,9 +110,12 @@ gcov_report: add_coverage_flag
 	open html/gcov_report.html
 
 
-style: clean
-	mv ../materials/linters/.clang-format ./
-	clang-format -i *.c
-	clang-format -i s21_*.h
-	clang-format -i s21_specs/s21_*.c
-	mv .clang-format ../materials/linters
+style: 
+	@echo Style...
+	@mv ../materials/linters/.clang-format ./
+	@clang-format -i *.c
+	@clang-format -i *.h
+	@clang-format -i s21_specs/*.c
+	@clang-format -i tests/*.c
+	@mv .clang-format ../materials/linters
+	@echo "\033[42m DONE \033[0m"

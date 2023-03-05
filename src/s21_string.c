@@ -20,15 +20,21 @@ int s21_strcmp(const char *str1, const char *str2) {
 int s21_strncmp(const char *str1, const char *str2, s21_size_t n) {
   int i = 0;
   int result = 0;
-  if (n == 0) result = 0;
-  else if (str1[i] == '\0' && str2[i] == '\0') result = 0;
-  else if (str1[i] == '\0') result = -str2[i];
-  else if (str2[i] == '\0') result = str1[i];
+  if (n == 0)
+    result = 0;
+  else if (str1[i] == '\0' && str2[i] == '\0')
+    result = 0;
+  else if (str1[i] == '\0')
+    result = -str2[i];
+  else if (str2[i] == '\0')
+    result = str1[i];
   else {
     for (; str1[i] == str2[i] && i < (int)n; i++)
-    ;
-    if (str1[i] == '\0' || str2[i] == '\0' || i == n) result = 0;
-    else result = str1[i] - str2[i];
+      ;
+    if (str1[i] == '\0' || str2[i] == '\0' || i == (int)n)
+      result = 0;
+    else
+      result = str1[i] - str2[i];
   }
   return result;
 }
@@ -192,16 +198,12 @@ void *s21_memmove(void *dest, const void *src, s21_size_t n) {
   char *l1 = (char *)dest;
   char *l2 = (char *)src;
 
-  if (dest != s21_NULL && src != s21_NULL)
-  {
+  if (dest != s21_NULL && src != s21_NULL) {
     s21_size_t i = 0;
-    if (l1 > l2)
-    {
+    if (l1 > l2) {
       i = n;
       while (i--) *(l1 + i) = *(l2 + i);
-    }
-    else
-    {
+    } else {
       i = 0;
       while (i++ < n) *(l1 + (i - 1)) = *(l2 + (i - 1));
     }

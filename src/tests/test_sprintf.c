@@ -510,7 +510,8 @@ END_TEST
 //   char str2[BUFF_SIZE];
 //   char *format = "%.15f";
 //   long double val = 15.35;
-//   ck_assert_int_eq(s21_sprintf(str1, format, val), sprintf(str2, format, val));
+//   ck_assert_int_eq(s21_sprintf(str1, format, val), sprintf(str2, format,
+//   val));
 
 //   ck_assert_str_eq(str1, str2);
 // }
@@ -559,7 +560,8 @@ END_TEST
 //   float val3 = 5.5;
 //   double val4 = 9851.51351;
 //   long double val5 = 59.531131;
-//   ck_assert_int_eq(s21_sprintf(str1, format, val, val1, val2, val3, val4, val5),
+//   ck_assert_int_eq(s21_sprintf(str1, format, val, val1, val2, val3, val4,
+//   val5),
 //                    sprintf(str2, format, val, val1, val2, val3, val4, val5));
 
 //   ck_assert_str_eq(str1, str2);
@@ -1097,7 +1099,6 @@ Suite *test_sprintf(void) {
   tcase_add_test(tc, sprintf_test_sprintf25);
   tcase_add_test(tc, sprintf_test_sprintf29);
   tcase_add_test(tc, sprintf_test_sprintf30);
-
 
   suite_add_tcase(s, tc);
   return s;
