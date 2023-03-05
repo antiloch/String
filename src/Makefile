@@ -60,15 +60,24 @@ $(S21_OBJECTS): $(BUILD_DIR)/%.o : %.c $(LIB:.a=.h)
 	@mkdir -p $(BUILD_DIR)/s21_specs
 	$(CC) $(FLAGS) -c $< -o $@
 
+gcov: gcov_report
+	@open ./$(GCOV_DIR)/gcov_report.html
+
+gcov_report : $(LIB) test $(GCOV_DIR)/gcov_report.html
+
+$(GCOV_DIR)/gcov_report.html : $(LIB) test
+	@mkdir -p gcov_report
+	gcovr -r . --gcov-executable $(GCOV) --html --html-details -o $(GCOV_DIR)/gcov_report.html
+
 # ######################################################################
 
-SRCS=$(wildcard s21_*.c s21_specs/s21_*.c)
+# SRCS=$(wildcard s21_*.c s21_specs/s21_*.c)
 
-OBJS=$(SRCS:.c=.o)
+# OBJS=$(SRCS:.c=.o)
 
-LIB_NAME=s21_string
+# LIB_NAME=s21_string
 
-all: clean $(LIB_NAME).a 
+# all: clean $(LIB_NAME).a 
 
 clean:
 	@echo Cleaning...
@@ -81,15 +90,15 @@ clean:
 	@rm -rf *.css
 	@rm -rf *.gch $(TEST_DIR)/*.gch
 	@rm -rf ./external/external
-	@echo "\033[42m DONE \033[0m"
+	@echo "\033[1;42m DONE \033[0m"
 
 # clean:
 # 	rm -rf *.o test *.a *.gcno *.gcda *.gcov *.html *.css
 # 	rm -rf s21_specs/*.o s21_specs/*.a s21_specs/*.gcno s21_specs/*.gcda s21_specs/*.gcov s21_specs/*.html s21_specs/*.css
 # 	rm -rf html/
 
-%.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
+# %.o: %.c
+# 	$(CC) $(FLAGS) -c $< -o $@
 
 # $(LIB_NAME).a: $(OBJS)
 # 	ar rc $(LIB_NAME).a $^
@@ -99,15 +108,15 @@ clean:
 # 	$(CC) $(FLAGS) test*.c -L. $(LIB_NAME).a $(TST_LIBS) -o test
 # 	./test
 
-add_coverage_flag:
-	$(CC) $(FLAGS) $(SRCS) test*.c -o test --coverage
+# add_coverage_flag:
+# 	$(CC) $(FLAGS) $(SRCS) test*.c -o test --coverage
 
-gcov_report: add_coverage_flag 
-	./test
-	mkdir -p html
-	gcov -b -l -p -c s21_*.gcno 
-	gcovr -o html/gcov_report.html --html --html-details
-	open html/gcov_report.html
+# gcov_report: add_coverage_flag 
+# 	./test
+# 	mkdir -p html
+# 	gcov -b -l -p -c s21_*.gcno 
+# 	gcovr -o html/gcov_report.html --html --html-details
+# 	open html/gcov_report.html
 
 
 style: 
@@ -118,4 +127,4 @@ style:
 	@clang-format -i s21_specs/*.c
 	@clang-format -i tests/*.c
 	@mv .clang-format ../materials/linters
-	@echo "\033[42m DONE \033[0m"
+	@echo "\033[1;42m DONE \033[0m"

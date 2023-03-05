@@ -25,12 +25,6 @@ START_TEST(strerror_4) {
 }
 END_TEST
 
-// START_TEST(strerror_5) {
-//   int num_4 = -2147483648;
-//   ck_assert_str_eq(strerror(num_4), s21_strerror(num_4));
-// }
-// END_TEST
-
 END_TEST
 Suite *test_strerror(void) {
   Suite *s = suite_create("\033[42m  S21_STRERROR  \033[0m");
@@ -41,7 +35,6 @@ Suite *test_strerror(void) {
   tcase_add_test(tc, strerror_2);
   tcase_add_test(tc, strerror_3);
   tcase_add_test(tc, strerror_4);
-  // tcase_add_test(tc, strerror_5);
 
   suite_add_tcase(s, tc);
   return s;

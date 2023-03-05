@@ -505,18 +505,6 @@ START_TEST(sprintf_float_precision_empty) {
 }
 END_TEST
 
-// START_TEST(sprintf_float_precision_huge) {
-//   char str1[BUFF_SIZE];
-//   char str2[BUFF_SIZE];
-//   char *format = "%.15f";
-//   long double val = 15.35;
-//   ck_assert_int_eq(s21_sprintf(str1, format, val), sprintf(str2, format,
-//   val));
-
-//   ck_assert_str_eq(str1, str2);
-// }
-// END_TEST
-
 START_TEST(sprintf_float_precision_huge_negative) {
   char str1[BUFF_SIZE];
   char str2[BUFF_SIZE];
@@ -549,24 +537,6 @@ START_TEST(sprintf_float_flags) {
   ck_assert_str_eq(str1, str2);
 }
 END_TEST
-
-// START_TEST(sprintf_float_many) {
-//   char str1[BUFF_SIZE];
-//   char str2[BUFF_SIZE];
-//   char *format = "% .0f %.lf %Lf %f %lf %f";
-//   float val = 0;
-//   double val1 = 0;
-//   long double val2 = 15315.153151;
-//   float val3 = 5.5;
-//   double val4 = 9851.51351;
-//   long double val5 = 59.531131;
-//   ck_assert_int_eq(s21_sprintf(str1, format, val, val1, val2, val3, val4,
-//   val5),
-//                    sprintf(str2, format, val, val1, val2, val3, val4, val5));
-
-//   ck_assert_str_eq(str1, str2);
-// }
-// END_TEST
 
 START_TEST(sprintf_test_one_char) {
   char str1[BUFF_SIZE];
@@ -971,19 +941,6 @@ START_TEST(sprintf_test_sprintf25) {
 }
 END_TEST
 
-// START_TEST(sprintf_test_sprintf28) {
-//     char str1[BUFF_SIZE];
-//     char str2[BUFF_SIZE];
-//     int n1;
-//     int n2;
-//     int a = s21_sprintf(str1, "%d%n", 123, &n1);
-//     int b = sprintf(str2, "%d%n", 123, &n2);
-
-//     ck_assert_int_eq(a, b);
-//     ck_assert_int_eq(n1, n2);
-//     ck_assert_str_eq(str1, str2);
-// } END_TEST
-
 START_TEST(sprintf_test_sprintf29) {
   char str1[BUFF_SIZE];
   char str2[BUFF_SIZE];
@@ -1008,7 +965,7 @@ START_TEST(sprintf_test_sprintf30) {
 END_TEST
 
 Suite *test_sprintf(void) {
-  Suite *s = suite_create("\033[42m  S21_SPRINTF  \033[0m");
+  Suite *s = suite_create("\033[42m  SPRINTF  \033[0m");
   TCase *tc = tcase_create("sprintf_tc");
 
   suite_add_tcase(s, tc);
@@ -1054,13 +1011,11 @@ Suite *test_sprintf(void) {
   tcase_add_test(tc, sprintf_float_width);
   tcase_add_test(tc, sprintf_float_precision_zero);
   tcase_add_test(tc, sprintf_float_precision_empty);
-  // tcase_add_test(tc, sprintf_float_precision_huge);
   tcase_add_test(
       tc, sprintf_float_precision_huge_negative);  // ?? what's wrong with
                                                    // buil-in sprintf
   tcase_add_test(tc, sprintf_float_huge);
   tcase_add_test(tc, sprintf_float_flags);
-  // tcase_add_test(tc, sprintf_float_many);
   tcase_add_test(tc, sprintf_test_one_char);
   tcase_add_test(tc, sprintf_test_many_char);
   tcase_add_test(tc, sprintf_test_one_string);
