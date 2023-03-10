@@ -1,49 +1,51 @@
 CC = gcc
 FLAGS = -Wall -Wextra -Werror -std=c11
-TST_LIBS = -lcheck
+TEST_FLAGS = -lcheck
 
+BUILD_DIR=build
+BUILD_TEST_DIR=$(BUILD_DIR)/tests
+BUILD_SPECS_DIR=$(BUILD_DIR)/s21_specs
 SRCS=$(wildcard s21_*.c s21_specs/s21_*.c)
+OBJS=$(SRCS:%.c=$(BUILD_DIR)/%.o)
+TEST_SRCS=$(wildcard tests/*.c)
 
-OBJS=$(SRCS:.c=.o)
+LIB_NAME=s21_string.a
 
-LIB_NAME=s21_string
+all: clean $(LIB_NAME) 
 
-all: clean $(LIB_NAME).a 
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(BUILD_SPECS_DIR)
+	@$(CC) $(FLAGS) -c $< -o $@
 
-%.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
+$(LIB_NAME): $(OBJS)
+	@echo Creating $(LIB_NAME) library...
+	@ar rc $(LIB_NAME) $^
+	@ranlib $(LIB_NAME)
+	@echo "\033[1;42m DONE \033[0m"
 
-$(LIB_NAME).a: $(OBJS)
-	ar rc $(LIB_NAME).a $^
-	ranlib $(LIB_NAME).a
-
-test: clean $(LIB_NAME).a
-	$(CC) $(FLAGS) tests/*.c -L. $(LIB_NAME).a $(TST_LIBS) -o test
-	./test
+test: $(LIB_NAME)
+	@$(CC) $(FLAGS) $(TEST_SRCS) -L. $(LIB_NAME) $(TEST_FLAGS) -o test
+	@./test
 
 add_coverage_flag:
 	$(eval FLAGS += --coverage)	
 
-gcov_report: add_coverage_flag test 
-	./test
-	mkdir -p html
-	gcov -b -l -p -c s21_*.gcno 
-	gcovr -o html/gcov_report.html --html --html-details
-	open html/gcov_report.html
+gcov_report: clean add_coverage_flag test
+	@mkdir -p html
+	@gcov -b -l -p -c $(BUILD_DIR)/*.gcno
+	@rm -rf *.gcno *gcda *.gcov
+	@gcovr -o html/gcov_report.html --html --html-details
+	@open html/gcov_report.html
 
 clean:
 	@echo Cleaning...
 	@rm -rf build/
+	@rm -rf s21_specs/*.o s21_specs/*.gcno s21_specs/*.gcda
+	@rm -rf tests/*.o tests/*.gcno tests/*.gcda
+	@rm -rf *.o *.a *.gcno *.gcda *.gcov
 	@rm -rf html/
-	@rm -rf s21_specs/*.o s21_specs/*.gcno s21_specs/*.gcda s21_specs/*.gcov
-	@rm -rf tests/*.o
-	@rm -rf *.o *.gcno *.gcda *.gcov
-	@rm -rf *.html
 	@rm -rf a.out test
-	@rm -rf *.a
 	@rm -rf *.css
-	@rm -rf *.gch $(TEST_DIR)/*.gch
-	@rm -rf ./external/external
 	@echo "\033[1;42m DONE \033[0m"
 
 style: 
