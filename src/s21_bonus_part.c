@@ -3,6 +3,7 @@
 static char *buffer = s21_NULL;
 
 void *s21_to_upper(const char *str) {
+  if (str == s21_NULL) return s21_NULL;
   buffer = (char *)malloc(sizeof(char) * (s21_strlen(str) + 1));
   char *start = buffer;
   if (str != s21_NULL) {
@@ -23,6 +24,7 @@ void *s21_to_upper(const char *str) {
 }
 
 void *s21_to_lower(const char *str) {
+  if (str == s21_NULL) return s21_NULL;
   buffer = malloc(sizeof(char) * (s21_strlen(str) + 1));
   char *start = buffer;
   if (str != s21_NULL) {
@@ -45,6 +47,7 @@ void *s21_to_lower(const char *str) {
 void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
   // src - куда вставляем
   // str - что вставляем
+  if (str == s21_NULL) return s21_NULL;
   char *start = s21_NULL;
   if (src != s21_NULL && str == s21_NULL && start_index == 0) {
     buffer = (char *)malloc(sizeof(char) * (s21_strlen(src) + 1));
@@ -87,10 +90,11 @@ char *const_reverse(const char *s, char *new_str) {
 }
 
 void *s21_trim(const char *src, const char *trim_chars) {
+  if (src == s21_NULL) return s21_NULL;
   char *start = s21_NULL;
   char *str = s21_NULL;
   if ((trim_chars == start) || (s21_strlen(trim_chars) == 0)) {
-    trim_chars = " ";
+    trim_chars = "";
   }
   int first_entry = 0, last_entry = 0, length = s21_strlen(src);
   first_entry = s21_strspn(src, trim_chars);

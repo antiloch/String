@@ -80,25 +80,25 @@ START_TEST(test_insert_8) {
 }
 END_TEST
 
-// START_TEST(test_insert_9) {
-//   char s1[] = "wtf";
-//   char *s3 = S21_NULL;
-//   char *s4 = S21_NULL;
-//   s21_size_t num = 0;
-//   char *s2 = s21_insert(s1, s3, num);
-//   ck_assert_pstr_eq(s4, s2);
-// }
-// END_TEST
+START_TEST(test_insert_9) {
+  char s1[] = "wtf";
+  char *s3 = S21_NULL;
+  char *s4 = S21_NULL;
+  s21_size_t num = 0;
+  char *s2 = s21_insert(s1, s3, num);
+  ck_assert_pstr_eq(s4, s2);
+}
+END_TEST
 
-// START_TEST(test_insert_10) {
-//   char s1[] = "";
-//   char *s3 = S21_NULL;
-//   char *s4 = S21_NULL;
-//   s21_size_t num = 0;
-//   char *s2 = s21_insert(s1, s3, num);
-//   ck_assert_pstr_eq(s2, s4);
-// }
-// END_TEST
+START_TEST(test_insert_10) {
+  char s1[] = "";
+  char *s3 = S21_NULL;
+  char *s4 = S21_NULL;
+  s21_size_t num = 0;
+  char *s2 = s21_insert(s1, s3, num);
+  ck_assert_pstr_eq(s2, s4);
+}
+END_TEST
 
 Suite *test_insert(void) {
   Suite *s = suite_create("\033[42m  S21_INSERT  \033[0m");
@@ -112,8 +112,8 @@ Suite *test_insert(void) {
   tcase_add_test(tc, test_insert_6);
   tcase_add_test(tc, test_insert_7);
   tcase_add_test(tc, test_insert_8);
-  // tcase_add_test(tc, test_insert_9);
-  // tcase_add_test(tc, test_insert_10);
+  tcase_add_test(tc, test_insert_9);
+  tcase_add_test(tc, test_insert_10);
 
   suite_add_tcase(s, tc);
   return s;

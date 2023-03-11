@@ -31,35 +31,19 @@ test: $(LIB_NAME)
 add_coverage_flag:
 	$(eval FLAGS += --coverage)	
 
-# add_coverage_flag:
-# 	$(CC) $(FLAGS) $(SRCS) $(TEST_SRCS) -o test --coverage
-
-# gcov_report: add_coverage_flag test
-# 	# ./test
-# 	@rm -rf *.gcno *gcda *.gcov
-# 	gcov $(BUILD_DIR)/*.gcno
-# 	geninfo $(BUILD_DIR)/ -b ./ -o report.info
-# 	genhtml -o report report.info;
-# # lcov --c --directory . --output-file coverage.info
-# # genhtml coverage.info --output-directory gcov_report
-# 	# rm -rf *.info *.gcda *.gcno
-# 	# open report/index.html
-
 gcov_report: clean add_coverage_flag test
-	@mkdir -p html
 	@gcov -b -l -p -c $(BUILD_DIR)/*.gcno
 	@rm -rf *.gcno *gcda *.gcov
-	lcov --c --directory . --output-file coverage.info
-	genhtml coverage.info --output-directory gcov_report
-	@gcovr -o html/gcov_report.html --html --html-details
-	@open html/gcov_report.html
+	@lcov --c --directory . --output-file coverage.info
+	@genhtml coverage.info --output-directory gcov_report
+	@open gcov_report/index.html
 
 clean:
 	@echo Cleaning...
-	@rm -rf build/
+	@rm -rf build/ gcov_report/ html/
 	@rm -rf s21_specs/*.o s21_specs/*.gcno s21_specs/*.gcda
 	@rm -rf tests/*.o tests/*.gcno tests/*.gcda
-	@rm -rf *.o *.a *.gcno *.gcda *.gcov
+	@rm -rf *.o *.a *.gcno *.gcda *.gcov *.info
 	@rm -rf html/
 	@rm -rf a.out test
 	@rm -rf *.css

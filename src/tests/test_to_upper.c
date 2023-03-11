@@ -48,13 +48,13 @@ START_TEST(test_to_upper_6) {
 }
 END_TEST
 
-// START_TEST(test_to_upper_7) {
-//   char *s1 = S21_NULL;
-//   char *s2 = s21_to_upper(s1);
-//   char *s3 = S21_NULL;
-//   ck_assert_pstr_eq(s3, s2);
-// }
-// END_TEST
+START_TEST(test_to_upper_7) {
+  char *s1 = S21_NULL;
+  char *s2 = s21_to_upper(s1);
+  char *s3 = S21_NULL;
+  ck_assert_pstr_eq(s3, s2);
+}
+END_TEST
 
 Suite *test_to_upper(void) {
   Suite *s = suite_create("\033[42m  S21_TO_UPPER  \033[0m");
@@ -67,7 +67,7 @@ Suite *test_to_upper(void) {
   tcase_add_test(tc, test_to_upper_4);
   tcase_add_test(tc, test_to_upper_5);
   tcase_add_test(tc, test_to_upper_6);
-  // tcase_add_test(tc, test_to_upper_7);
+  tcase_add_test(tc, test_to_upper_7);
 
   suite_add_tcase(s, tc);
   return s;

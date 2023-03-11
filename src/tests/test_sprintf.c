@@ -964,6 +964,28 @@ START_TEST(sprintf_test_sprintf30) {
 }
 END_TEST
 
+START_TEST(sprintf_test_sprintf27) {
+  char str1[BUFF_SIZE];
+  char str2[BUFF_SIZE];
+  char format[] = "%%%%%%%%";
+
+  ck_assert_int_eq(s21_sprintf(str1, format), sprintf(str2, format));
+
+  ck_assert_str_eq(str1, str2);
+}
+END_TEST
+
+START_TEST(sprintf_test_sprintf28) {
+  char str1[BUFF_SIZE];
+  char str2[BUFF_SIZE];
+  char format[] = "%2%%%%%%-2%";
+
+  ck_assert_int_eq(s21_sprintf(str1, format), sprintf(str2, format));
+
+  ck_assert_str_eq(str1, str2);
+}
+END_TEST
+
 Suite *test_sprintf(void) {
   Suite *s = suite_create("\033[42m  SPRINTF  \033[0m");
   TCase *tc = tcase_create("sprintf_tc");
@@ -1052,6 +1074,8 @@ Suite *test_sprintf(void) {
   tcase_add_test(tc, sprintf_test_sprintf20);
   tcase_add_test(tc, sprintf_test_sprintf24);
   tcase_add_test(tc, sprintf_test_sprintf25);
+  tcase_add_test(tc, sprintf_test_sprintf27);
+  tcase_add_test(tc, sprintf_test_sprintf28);
   tcase_add_test(tc, sprintf_test_sprintf29);
   tcase_add_test(tc, sprintf_test_sprintf30);
 
