@@ -128,7 +128,7 @@ START_TEST(strncat_14) {
 END_TEST
 
 Suite *test_strncat(void) {
-  Suite *s = suite_create("\033[42m  S21_STRNCAT  \033[0m");
+  Suite *s = suite_create("\033[1;33m  S21_STRNCAT  \033[0m");
   TCase *tc = tcase_create("strncat_tc");
 
   suite_add_tcase(s, tc);

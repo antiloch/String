@@ -57,7 +57,7 @@ START_TEST(test_to_upper_7) {
 END_TEST
 
 Suite *test_to_upper(void) {
-  Suite *s = suite_create("\033[42m  S21_TO_UPPER  \033[0m");
+  Suite *s = suite_create("\033[1;33m  S21_TO_UPPER  \033[0m");
   TCase *tc = tcase_create("to_upper_tc");
 
   suite_add_tcase(s, tc);

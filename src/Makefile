@@ -18,13 +18,13 @@ $(BUILD_DIR)/%.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
 
 $(LIB_NAME): $(OBJS)
-	@echo Creating $(LIB_NAME) library...
+	@echo "\033[1;34mCreating $(LIB_NAME) library\033[0m"
 	@ar rc $(LIB_NAME) $^
 	@ranlib $(LIB_NAME)
 	@echo "\033[1;42m DONE \033[0m"
 
 test: $(LIB_NAME)
-	@echo Creating tests...
+	@echo "\033[1;34mCreating tests\033[0m"
 	@$(CC) $(FLAGS) $(TEST_SRCS) -L. $(LIB_NAME) $(TEST_FLAGS) -o test
 	@./test
 
@@ -39,7 +39,7 @@ gcov_report: clean add_coverage_flag test
 	@open gcov_report/index.html
 
 clean:
-	@echo Cleaning...
+	@echo "\033[1;34mCleaning\033[0m"
 	@rm -rf build/ gcov_report/ html/
 	@rm -rf s21_specs/*.o s21_specs/*.gcno s21_specs/*.gcda
 	@rm -rf tests/*.o tests/*.gcno tests/*.gcda

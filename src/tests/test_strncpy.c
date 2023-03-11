@@ -47,7 +47,7 @@ START_TEST(strncpy_6) {
 END_TEST
 
 Suite *test_strncpy(void) {
-  Suite *s = suite_create("\033[42m  S21_STRNCPY  \033[0m");
+  Suite *s = suite_create("\033[1;33m  S21_STRNCPY  \033[0m");
   TCase *tc = tcase_create("strncpy_tc");
 
   tcase_add_test(tc, strncpy_1);
