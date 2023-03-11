@@ -24,16 +24,33 @@ $(LIB_NAME): $(OBJS)
 	@echo "\033[1;42m DONE \033[0m"
 
 test: $(LIB_NAME)
+	@echo Creating tests...
 	@$(CC) $(FLAGS) $(TEST_SRCS) -L. $(LIB_NAME) $(TEST_FLAGS) -o test
 	@./test
 
 add_coverage_flag:
 	$(eval FLAGS += --coverage)	
 
+# add_coverage_flag:
+# 	$(CC) $(FLAGS) $(SRCS) $(TEST_SRCS) -o test --coverage
+
+# gcov_report: add_coverage_flag test
+# 	# ./test
+# 	@rm -rf *.gcno *gcda *.gcov
+# 	gcov $(BUILD_DIR)/*.gcno
+# 	geninfo $(BUILD_DIR)/ -b ./ -o report.info
+# 	genhtml -o report report.info;
+# # lcov --c --directory . --output-file coverage.info
+# # genhtml coverage.info --output-directory gcov_report
+# 	# rm -rf *.info *.gcda *.gcno
+# 	# open report/index.html
+
 gcov_report: clean add_coverage_flag test
 	@mkdir -p html
 	@gcov -b -l -p -c $(BUILD_DIR)/*.gcno
 	@rm -rf *.gcno *gcda *.gcov
+	lcov --c --directory . --output-file coverage.info
+	genhtml coverage.info --output-directory gcov_report
 	@gcovr -o html/gcov_report.html --html --html-details
 	@open html/gcov_report.html
 
