@@ -32,11 +32,12 @@ add_coverage_flag:
 	$(eval FLAGS += --coverage)	
 
 gcov_report: clean add_coverage_flag test
-	@gcov -b -l -p -c $(BUILD_DIR)/*.gcno
+	@gcov -l -p $(BUILD_DIR)/*.gcno
 	@rm -rf *.gcno *gcda *.gcov
-	@lcov --c --directory . --output-file coverage.info
-	@genhtml coverage.info --output-directory gcov_report
+	@lcov -q --c --directory . --output-file coverage.info
+	@genhtml -q coverage.info --output-directory gcov_report
 	@open gcov_report/index.html
+	@make clean
 
 clean:
 	@echo "\033[1;34mCleaning\033[0m"
