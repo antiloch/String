@@ -102,6 +102,6 @@ void *s21_trim(const char *src, const char *trim_chars) {
     buffer = (char *)malloc(sizeof(char) * 1);
     *buffer = *src;
     start = buffer;
-  } 
+  }
   return start;
 }

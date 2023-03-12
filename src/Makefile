@@ -41,8 +41,7 @@ gcov_report: clean add_coverage_flag test
 clean:
 	@echo "\033[1;34mCleaning\033[0m"
 	@rm -rf build/ gcov_report/
-	@rm -rf s21_specs/*.o s21_specs/*.gcno s21_specs/*.gcda
-	@rm -rf a.out test *.info *.a
+	@rm -rf a.out test *.info *.a *.gcda
 	@echo "\033[1;42m DONE \033[0m"
 
 style: 
