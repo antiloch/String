@@ -6,20 +6,16 @@ void *s21_to_upper(const char *str) {
   if (str == s21_NULL) return s21_NULL;
   buffer = (char *)malloc(sizeof(char) * (s21_strlen(str) + 1));
   char *start = buffer;
-  if (str != s21_NULL) {
-    while (*str != '\0') {
-      if (*str > 96 && *str < 123) {
-        *buffer = *str - 32;
-      } else {
-        *buffer = *str;
-      }
-      str++;
-      buffer++;
+  while (*str != '\0') {
+    if (*str > 96 && *str < 123) {
+      *buffer = *str - 32;
+    } else {
+      *buffer = *str;
     }
-    *buffer = '\0';
-  } else {
-    buffer = s21_NULL;
+    str++;
+    buffer++;
   }
+  *buffer = '\0';
   return start;
 }
 
@@ -27,20 +23,16 @@ void *s21_to_lower(const char *str) {
   if (str == s21_NULL) return s21_NULL;
   buffer = malloc(sizeof(char) * (s21_strlen(str) + 1));
   char *start = buffer;
-  if (str != s21_NULL) {
-    while (*str != '\0') {
-      if (*str > 64 && *str < 91) {
-        *buffer = *str + 32;
-      } else {
-        *buffer = *str;
-      }
-      str++;
-      buffer++;
+  while (*str != '\0') {
+    if (*str > 64 && *str < 91) {
+      *buffer = *str + 32;
+    } else {
+      *buffer = *str;
     }
-    *buffer = '\0';
-  } else {
-    buffer = s21_NULL;
+    str++;
+    buffer++;
   }
+  *buffer = '\0';
   return start;
 }
 
@@ -49,15 +41,7 @@ void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
   // str - что вставляем
   if (str == s21_NULL) return s21_NULL;
   char *start = s21_NULL;
-  if (src != s21_NULL && str == s21_NULL && start_index == 0) {
-    buffer = (char *)malloc(sizeof(char) * (s21_strlen(src) + 1));
-    start = buffer;
-    for (s21_size_t i = 0; i < s21_strlen(src); i++) {
-      buffer[i] = src[i];
-      buffer[i + 1] = '\0';
-    }
-  }
-  if (src != s21_NULL && str != s21_NULL) {
+  if (src != s21_NULL) {
     if (s21_strlen(src) >= start_index) {
       s21_size_t length = s21_strlen(src) + s21_strlen(str);
       s21_size_t index = start_index + s21_strlen(str);

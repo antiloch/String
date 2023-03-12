@@ -40,6 +40,16 @@ START_TEST(test_insert_4) {
 }
 END_TEST
 
+START_TEST(test_insert_null) {
+  char s1[30] = "abcdefghij";
+  char s3[] = "\'I WAS HERE\'";
+  char s4[] = "\'I WAS HERE\'abcdefghij";
+  s21_size_t num = 0;
+  char *s2 = s21_insert(s1, s3, num);
+  ck_assert_pstr_eq(s4, s2);
+}
+END_TEST
+
 START_TEST(test_insert_5) {
   char s1[30] = "abc";
   char s3[] = "333";
@@ -114,6 +124,7 @@ Suite *test_insert(void) {
   tcase_add_test(tc, test_insert_8);
   tcase_add_test(tc, test_insert_9);
   tcase_add_test(tc, test_insert_10);
+  tcase_add_test(tc, test_insert_null);
 
   suite_add_tcase(s, tc);
   return s;

@@ -40,13 +40,9 @@ gcov_report: clean add_coverage_flag test
 
 clean:
 	@echo "\033[1;34mCleaning\033[0m"
-	@rm -rf build/ gcov_report/ html/
+	@rm -rf build/ gcov_report/
 	@rm -rf s21_specs/*.o s21_specs/*.gcno s21_specs/*.gcda
-	@rm -rf tests/*.o tests/*.gcno tests/*.gcda
-	@rm -rf *.o *.a *.gcno *.gcda *.gcov *.info
-	@rm -rf html/
-	@rm -rf a.out test
-	@rm -rf *.css
+	@rm -rf a.out test *.info *.a
 	@echo "\033[1;42m DONE \033[0m"
 
 style: 
@@ -55,6 +51,6 @@ style:
 	@clang-format -i *.c
 	@clang-format -i *.h
 	@clang-format -i s21_specs/*.c
-	@clang-format -i tests/*.c
+	@clang-format -i tests/*.c tests/*.h
 	@mv .clang-format ../materials/linters
 	@echo "\033[1;42m DONE \033[0m"
