@@ -37,7 +37,6 @@ gcov_report: clean add_coverage_flag test
 	@lcov -q --c --directory . --output-file coverage.info
 	@genhtml -q coverage.info --output-directory gcov_report
 	@open gcov_report/index.html
-	@make clean
 
 clean:
 	@echo "\033[1;34mCleaning\033[0m"
@@ -51,7 +50,7 @@ clean:
 	@echo "\033[1;42m DONE \033[0m"
 
 style: 
-	@echo Style...
+	@echo "\033[1;34mStyling\033[0m"
 	@mv ../materials/linters/.clang-format ./
 	@clang-format -i *.c
 	@clang-format -i *.h
