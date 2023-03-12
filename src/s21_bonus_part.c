@@ -82,10 +82,10 @@ void *s21_trim(const char *src, const char *trim_chars) {
   }
   int first_entry = 0, last_entry = 0, length = s21_strlen(src);
   first_entry = s21_strspn(src, trim_chars);
-  str = (char *)malloc(sizeof(char) * length);
+  str = (char *)malloc(sizeof(char) * length + 1);
   last_entry = s21_strspn(const_reverse(src, str), trim_chars);
   free(str);
-  buffer = (char *)malloc(sizeof(char) * length);
+  buffer = (char *)malloc(sizeof(char) * length + 1);
   start = buffer;
   for (int i = 0; i < (length - last_entry); i++) {
     if (i < first_entry) {
